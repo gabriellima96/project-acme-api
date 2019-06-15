@@ -1,5 +1,6 @@
 package site.gabriellima.acmeapi.resource.exception;
 
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class ResourceHandleException extends ResponseEntityExceptionHandler {
             System.currentTimeMillis(),
             HttpStatus.UNPROCESSABLE_ENTITY.value(),
             "Field Validation Error",
-            ex.getMessage(),
+            "Check all fields",
             request.getContextPath());
 
     ex.getBindingResult()

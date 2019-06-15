@@ -3,6 +3,7 @@ package site.gabriellima.acmeapi.domain;
 import site.gabriellima.acmeapi.domain.enums.Status;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,14 +17,19 @@ public class OrderRequest implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank
-  private String requester;
+  @NotBlank private String requester;
   private String note;
 
   @Enumerated(EnumType.STRING)
   private Status status;
 
-  @Embedded @NotNull
+  @Valid
+  @NotNull
+  @Embedded
+  @AttributeOverrides({
+    @AttributeOverride(name = "description", column = @Column(name = "description", table = "product")),
+    @AttributeOverride(name = "price", column = @Column(name = "price", table = "product"))
+  })
   private Product product;
 
   public OrderRequest() {
